@@ -1,0 +1,6 @@
+candidate_name,email,phone,college,applied_role,skills,experience_months,notice_period_days,expected_salary,resume_text,portfolio_url,historical_selection_status
+Rahul Sharma,rahul@gmail.com,9876543210,ABC College,Python Django Developer,"python,django,sql,git",12,30,500000,"Python Django developer with SQL experience",https://github.com/rahul,selected
+Priya Das,priya@gmail.com,9876543211,XYZ College,Python Django Developer,"python,django,html,css",6,15,450000,"Fresher skilled in Python and Django",https://github.com/priya,rejected
+Amit Roy,amit@gmail,9876543212,ABC College,Full Stack Developer,"python,javascript,react",10,30,550000,"Full stack developer",https://github.com/amit,selected
+Suman Ghosh,suman@gmail.com,12345,XYZ College,Data Analyst,"python,pandas,numpy,sql",8,20,480000,"Data analyst with Python experience",https://github.com/suman,waitlisted
+Rahul Sharma,rahul@gmail.com,9876543210,ABC College,Python Django Developer,"python,django,sql",12,30,500000,"Duplicate candidate",https://github.com/rahul,selected

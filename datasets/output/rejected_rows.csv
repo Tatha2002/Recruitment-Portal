@@ -1,0 +1,5 @@
+resume_text,applied_role,email,notice_period_days,skills,candidate_name,college,experience_months,expected_salary,phone,portfolio_url,historical_selection_status,rejection_reason
+Python Django developer with SQL experience,python django developer,rahul@gmail.com,30,"python,django,sql,git",Rahul Sharma,ABC College,12,500000,9876543210,https://github.com/rahul,selected,Duplicate email
+Full stack developer,full stack developer,amit@gmail,30,"python,javascript,react",Amit Roy,ABC College,10,550000,9876543212,https://github.com/amit,selected,Invalid email
+Data analyst with Python experience,data analyst,suman@gmail.com,20,"python,pandas,numpy,sql",Suman Ghosh,XYZ College,8,480000,12345,https://github.com/suman,waitlisted,Invalid phone
+Duplicate candidate,python django developer,rahul@gmail.com,30,"python,django,sql",Rahul Sharma,ABC College,12,500000,9876543210,https://github.com/rahul,selected,Duplicate email

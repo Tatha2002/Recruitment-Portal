@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2>Candidate List</h2>
+
+        <p class="text-muted">
+            All uploaded candidates
+        </p>
+    </div>
+
+    <a
+        href="{% url 'upload_candidates' %}"
+        class="btn btn-primary"
+    >
+        Upload Candidates
+    </a>
+
+</div>
+
+
+{% if candidates %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>#</th>
+
+                <th>Name</th>
+
+                <th>Email</th>
+
+                <th>Phone</th>
+
+                <th>College</th>
+
+                <th>Applied Role</th>
+
+                <th>Experience</th>
+
+                <th>Notice Period</th>
+
+                <th>Expected Salary</th>
+
+                <th>Historical Status</th>
+
+                <th>Current Status</th>
+
+                <th>Batch</th>
+
+                <th>Screening Result</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for candidate in candidates %}
+
+            <tr>
+
+                <td>
+                    {{ forloop.counter }}
+                </td>
+
+
+                <td>
+                    {{ candidate.candidate_name }}
+                </td>
+
+
+                <td>
+                    {{ candidate.email }}
+                </td>
+
+
+                <td>
+                    {{ candidate.phone }}
+                </td>
+
+
+                <td>
+                    {{ candidate.college }}
+                </td>
+
+
+                <td>
+                    {{ candidate.applied_role.title }}
+                </td>
+
+
+                <td>
+                    {{ candidate.experience_months }} months
+                </td>
+
+
+                <td>
+                    {{ candidate.notice_period_days }} days
+                </td>
+
+
+                <td>
+                    ₹{{ candidate.expected_salary }}
+                </td>
+
+
+                <td>
+                    {{ candidate.historical_selection_status }}
+                </td>
+
+
+                <!-- Current Candidate Status -->
+
+                <td>
+
+                    {% if candidate.status == 'NEW' %}
+
+                        <span class="badge bg-secondary">
+                            New
+                        </span>
+
+                    {% elif candidate.status == 'SHORTLISTED' %}
+
+                        <span class="badge bg-success">
+                            Shortlisted
+                        </span>
+
+                    {% elif candidate.status == 'REJECTED' %}
+
+                        <span class="badge bg-danger">
+                            Rejected
+                        </span>
+
+                    {% elif candidate.status == 'WAITLISTED' %}
+
+                        <span class="badge bg-warning text-dark">
+                            Waitlisted
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- Batch -->
+
+                <td>
+
+                    {% if candidate.batch %}
+
+                        {{ candidate.batch.file_name }}
+
+                    {% else %}
+
+                        -
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- Screening Result -->
+
+                <td>
+
+                    {% if candidate.screening_result %}
+
+                        <strong>
+                            Score:
+                        </strong>
+
+                        {{ candidate.screening_result.score }}
+
+                        <br>
+
+                        <strong>
+                            Status:
+                        </strong>
+
+                        {{ candidate.screening_result.status }}
+
+                        <br>
+
+                        <strong>
+                            Reason:
+                        </strong>
+
+                        {{ candidate.screening_result.reason }}
+
+                    {% else %}
+
+                        <span class="text-muted">
+                            Not screened
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- Action -->
+
+                <td>
+
+                    <a
+                        href="{% url 'screen_candidate' candidate.id %}"
+                        class="btn btn-success btn-sm"
+                    >
+                        Screen Candidate
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% else %}
+
+    <div class="alert alert-info">
+
+        No candidates have been uploaded yet.
+
+    </div>
+
+{% endif %}
+
+
+<a
+    href="{% url 'dashboard' %}"
+    class="btn btn-secondary mt-3"
+>
+    Back to Dashboard
+</a>
+
+</div>
+
+{% endblock %}

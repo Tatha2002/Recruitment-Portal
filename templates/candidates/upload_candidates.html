@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Upload Candidates</h2>
+
+    <p class="text-muted">
+        Upload the candidate CSV file for screening.
+    </p>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="mb-3">
+
+            <label for="candidate_file" class="form-label">
+                Candidate CSV File
+            </label>
+
+            <input
+                type="file"
+                name="candidate_file"
+                id="candidate_file"
+                class="form-control"
+                accept=".csv"
+                required
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-primary">
+            Upload Candidates
+        </button>
+
+        <a
+            href="{% url 'candidate_list' %}"
+            class="btn btn-secondary">
+            View Candidates
+        </a>
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="btn btn-outline-secondary">
+            Back to Dashboard
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2 class="mb-4">
+    Screen Candidate
+</h2>
+
+
+<!-- Candidate Information -->
+
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="mb-0">
+            Candidate Information
+        </h5>
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Name:</strong>
+
+                {{ candidate.candidate_name }}
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Email:</strong>
+
+                {{ candidate.email }}
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Phone:</strong>
+
+                {{ candidate.phone }}
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>College:</strong>
+
+                {{ candidate.college }}
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Applied Role:</strong>
+
+                {{ candidate.applied_role.title }}
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Experience:</strong>
+
+                {{ candidate.experience_months }} months
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Notice Period:</strong>
+
+                {{ candidate.notice_period_days }} days
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <strong>Expected Salary:</strong>
+
+                ₹{{ candidate.expected_salary }}
+
+            </div>
+
+
+            <div class="col-md-12 mb-3">
+
+                <strong>Skills:</strong>
+
+                {{ candidate.skills }}
+
+            </div>
+
+
+            <div class="col-md-12 mb-3">
+
+                <strong>Resume Text:</strong>
+
+                {{ candidate.resume_text }}
+
+            </div>
+
+
+            <div class="col-md-12 mb-3">
+
+                <strong>Portfolio:</strong>
+
+                {% if candidate.portfolio_url %}
+
+                    <a
+                        href="{{ candidate.portfolio_url }}"
+                        target="_blank"
+                    >
+                        {{ candidate.portfolio_url }}
+                    </a>
+
+                {% else %}
+
+                    -
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Screening Action -->
+
+<div class="mt-4">
+
+    <form
+        method="POST"
+        action="{% url 'screen_candidate' candidate.id %}"
+    >
+
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="btn btn-success"
+        >
+            Run Screening
+        </button>
+
+
+        <a
+            href="{% url 'candidate_list' %}"
+            class="btn btn-secondary"
+        >
+            Back to Candidates
+        </a>
+
+    </form>
+
+</div>
+
+
+<!-- Screening Result -->
+
+{% if candidate.screening_result %}
+
+<div class="card mt-4">
+
+    <div class="card-header">
+        <h5 class="mb-0">
+            Screening Result
+        </h5>
+    </div>
+
+
+    <div class="card-body">
+
+        <p>
+            <strong>Score:</strong>
+
+            {{ candidate.screening_result.score }}
+        </p>
+
+
+        <p>
+            <strong>Status:</strong>
+
+            {{ candidate.screening_result.status }}
+        </p>
+
+
+        <p>
+            <strong>Reason:</strong>
+
+            {{ candidate.screening_result.reason }}
+        </p>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

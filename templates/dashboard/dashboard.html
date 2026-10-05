@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+<h2 class="mb-4">
+    HR Dashboard
+</h2>
+
+
+<!-- Summary -->
+
+<div class="row g-3">
+
+    <div class="col-md-3">
+
+        <div class="card text-center h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Total Candidates
+                </h6>
+
+                <h2>
+                    {{ total_candidates }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="card text-center h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    New
+                </h6>
+
+                <h2>
+                    {{ new_candidates }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="card text-center h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Shortlisted
+                </h6>
+
+                <h2>
+                    {{ shortlisted }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="card text-center h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Rejected
+                </h6>
+
+                <h2>
+                    {{ rejected }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Actions -->
+
+<div class="mt-4">
+
+    <a
+        href="{% url 'upload_candidates' %}"
+        class="btn btn-primary me-2"
+    >
+        Upload Candidates
+    </a>
+
+    <a
+        href="{% url 'candidate_list' %}"
+        class="btn btn-secondary"
+    >
+        View Candidates
+    </a>
+
+</div>
+
+
+<!-- Role-wise Candidates -->
+
+<div class="mt-5">
+
+    <h4 class="mb-3">
+        Role-wise Candidates
+    </h4>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Role</th>
+                    <th>Total Candidates</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for item in role_counts %}
+
+                <tr>
+
+                    <td>
+                        {{ item.applied_role__title }}
+                    </td>
+
+                    <td>
+                        {{ item.total }}
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="2" class="text-center">
+                        No candidates available.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Candidates -->
+
+<div class="mt-5">
+
+    <h4 class="mb-3">
+        Recent Candidates
+    </h4>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Experience</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for candidate in recent_candidates %}
+
+                <tr>
+
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+                    <td>
+                        {{ candidate.candidate_name }}
+                    </td>
+
+                    <td>
+                        {{ candidate.email }}
+                    </td>
+
+                    <td>
+                        {{ candidate.applied_role.title }}
+                    </td>
+
+                    <td>
+                        {{ candidate.experience_months }} months
+                    </td>
+
+                    <td>
+
+                        {% if candidate.status == 'NEW' %}
+
+                            <span class="badge bg-secondary">
+                                New
+                            </span>
+
+                        {% elif candidate.status == 'SHORTLISTED' %}
+
+                            <span class="badge bg-success">
+                                Shortlisted
+                            </span>
+
+                        {% elif candidate.status == 'REJECTED' %}
+
+                            <span class="badge bg-danger">
+                                Rejected
+                            </span>
+
+                        {% elif candidate.status == 'WAITLISTED' %}
+
+                            <span class="badge bg-warning text-dark">
+                                Waitlisted
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="6" class="text-center">
+                        No candidates available.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}
